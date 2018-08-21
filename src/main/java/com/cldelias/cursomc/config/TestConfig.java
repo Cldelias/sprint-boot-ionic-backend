@@ -12,7 +12,7 @@ import com.cldelias.cursomc.services.EmailService;
 import com.cldelias.cursomc.services.MockEmailService;
 
 @Configuration
-@Profile("dev")
+@Profile("test")
 public class TestConfig {
 
 	
