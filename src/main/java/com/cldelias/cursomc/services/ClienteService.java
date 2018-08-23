@@ -92,6 +92,9 @@ public class ClienteService {
 		return cli;
 	}
 
+	public Cliente findByEmail(String email) {
+		return this.repo.findByEmail(email);
+	}
 	
 	private void updateData(Cliente objNew, Cliente obj) {
 		objNew.setNome(obj.getNome());
