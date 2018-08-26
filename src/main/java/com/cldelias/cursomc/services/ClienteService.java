@@ -109,4 +109,8 @@ public class ClienteService {
 		objNew.setEmail(obj.getEmail());
 	}
 
+	public Cliente save(Cliente cliente) {
+		return this.repo.save(cliente);
+	}
+
 }
