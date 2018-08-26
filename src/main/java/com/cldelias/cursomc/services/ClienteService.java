@@ -15,11 +15,14 @@ import com.cldelias.cursomc.domain.Categoria;
 import com.cldelias.cursomc.domain.Cidade;
 import com.cldelias.cursomc.domain.Cliente;
 import com.cldelias.cursomc.domain.Endereco;
+import com.cldelias.cursomc.domain.enums.Perfil;
 import com.cldelias.cursomc.domain.enums.TipoCliente;
 import com.cldelias.cursomc.dto.ClienteDTO;
 import com.cldelias.cursomc.dto.ClienteNewDTO;
 import com.cldelias.cursomc.repositories.ClienteRepository;
 import com.cldelias.cursomc.repositories.EnderecoRepository;
+import com.cldelias.cursomc.security.UserSS;
+import com.cldelias.cursomc.services.exceptions.AuthorizationException;
 import com.cldelias.cursomc.services.exceptions.DataIntegrityException;
 import com.cldelias.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -36,6 +39,11 @@ public class ClienteService {
 	private BCryptPasswordEncoder pe;
 
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticate();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado !");
+		}
 		Optional<Cliente> obj = this.repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));		
