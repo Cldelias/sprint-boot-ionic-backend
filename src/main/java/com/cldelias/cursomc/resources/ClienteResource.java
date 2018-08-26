@@ -18,13 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cldelias.cursomc.domain.Categoria;
 import com.cldelias.cursomc.domain.Cliente;
-import com.cldelias.cursomc.domain.Cliente;
-import com.cldelias.cursomc.dto.CategoriaDTO;
 import com.cldelias.cursomc.dto.ClienteDTO;
 import com.cldelias.cursomc.dto.ClienteNewDTO;
-import com.cldelias.cursomc.repositories.EnderecoRepository;
 import com.cldelias.cursomc.services.ClienteService;
 
 @RestController
