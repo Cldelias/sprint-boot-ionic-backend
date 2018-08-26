@@ -101,7 +101,15 @@ public class ClienteService {
 	}
 
 	public Cliente findByEmail(String email) {
-		return this.repo.findByEmail(email);
+		UserSS user = UserService.authenticate();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado !");
+		}
+		Cliente obj = this.repo.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! id: " +  user.getId() + ", Tipo: " + Cliente.class.getName());
+		}
+		return obj;
 	}
 	
 	private void updateData(Cliente objNew, Cliente obj) {
